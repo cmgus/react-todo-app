@@ -42,11 +42,19 @@ class App extends Component {
   toggleTodoDone = (ev, index) => {
     const { checked } = ev.target
     const todos = [...this.state.todos]
-    todos[index] = { ...todos[index]}
+    todos[index] = { ...todos[index] }
     todos[index].done = checked
     this.setState({
       todos
-    }) 
+    })
+  }
+
+  removeTodo(index) {
+    const todos = [...this.state.todos]
+    todos.splice(index, 1)
+    this.setState({
+      todos
+    })
   }
 
   render() {
@@ -65,12 +73,14 @@ class App extends Component {
           </div>
         </form>
         <div className="row">
-          <div className="four columns">
+          <div className="five columns">
             <ul>
               {this.state.todos.map((todo, index) => (
                 <li key={todo.title}>
-                  <input onChange={(ev) => this.toggleTodoDone(ev, index)} className="u-pull-right" name={todo.title} type="checkbox" /* checked={todo.done} */ />
-                  <span className={todo.done ? 'done' : ''}>{todo.title}</span>
+                  <input onChange={(ev) => this.toggleTodoDone(ev, index)} className="mr-1" name={todo.title} type="checkbox" />
+                  <span className={todo.done ? 'done mr-1' : 'mr-1'}>{todo.title}</span>
+                  <button onClick={() => this.removeTodo(index)} className="u-pull-right">Remove</button>
+                  <hr />
                 </li>
               ))}
             </ul>

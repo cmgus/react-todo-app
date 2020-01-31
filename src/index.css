@@ -15,3 +15,7 @@ code {
 .done {
   text-decoration: line-through;
 }
+
+.mr-1 {
+  margin-right: 1em;
+}
