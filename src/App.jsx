@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import NewTodoForm from './components/NewTodoForm';
+import TodoList from './containers/TodoList';
 
 class App extends Component {
 
@@ -71,29 +73,18 @@ class App extends Component {
       <div className="container">
         <br /><br />
         <h1>{this.state.message}</h1>
-        <form onSubmit={this.formSubmitted}>
-          <div className="row">
-            <div className="six columns">
-              <label htmlFor="newTodo">New todo</label>
-              <input onChange={this.newTodoChanged} id="newTodo" name="newTodo" type="text" value={this.state.newTodo} />
-              <input className="u-pull-right button-primary" type="submit" value="Add Todo" />
-            </div>
-          </div>
-        </form>
+        <NewTodoForm
+          newTodo={this.state.newTodo}
+          newTodoChanged={this.newTodoChanged.bind(this)}
+          formSubmitted={this.formSubmitted.bind(this)} />
         <div className="row">
           <div className="five columns">
             <button onClick={() => this.allDone()} className="">All done</button>
             <br /><br />
-            <ul>
-              {this.state.todos.map((todo, index) => (
-                <li key={todo.title}>
-                  <input onChange={(ev) => this.toggleTodoDone(ev, index)} className="mr-1" checked={todo.done} name={todo.title} type="checkbox" />
-                  <span className={todo.done ? 'done mr-1' : 'mr-1'}>{todo.title}</span>
-                  <button onClick={() => this.removeTodo(index)} className="u-pull-right">Remove</button>
-                  <hr />
-                </li>
-              ))}
-            </ul>
+            <TodoList 
+              todos={this.state.todos}
+              toggleTodoDone={this.toggleTodoDone.bind(this)}
+              removeTodo={this.removeTodo.bind(this)} />
           </div>
         </div>
       </div>
