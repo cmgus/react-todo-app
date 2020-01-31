@@ -42,8 +42,7 @@ class App extends Component {
   toggleTodoDone = (ev, index) => {
     const { checked } = ev.target
     const todos = [...this.state.todos]
-    todos[index] = { ...todos[index] }
-    todos[index].done = checked
+    todos[index] = { ...todos[index], done: checked }
     this.setState({
       todos
     })
